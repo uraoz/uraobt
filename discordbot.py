@@ -23,7 +23,11 @@ async def roll(ctx, arg):
     mes = ""
     arg = arg.split(sep='d',maxsplit=1)
     for i in range(int(arg[0])):
-        mes=mes+str(random.choice(range(int(arg[1]))))+" "
+        mes=mes+str(random.choice(range(int(arg[1])))+1)+" "
     await ctx.send(mes)
+
+@bot.command()
+async def choice(ctx, *args):
+    await ctx.send(random.choice(args))
 
 bot.run(token)
