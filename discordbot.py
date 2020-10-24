@@ -30,4 +30,8 @@ async def roll(ctx, arg):
 async def choice(ctx, *args):
     await ctx.send(random.choice(args))
 
+@bot.command()
+async def vachar(ctx):
+    await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
+
 bot.run(token)
