@@ -19,7 +19,11 @@ async def ping(ctx):
     await ctx.send('pong')
 
 @bot.command()
-async def dice(ctx, arg):
-    await ctx.send(arg)
+async def roll(ctx, arg):
+    mes = ""
+    arg = arg.split(sep='d',maxsplit=1)
+    for i in range(int(arg[0])):
+        mes=mes+str(random.choice(range(int(arg[1]))))+" "
+    await ctx.send(mes)
 
 bot.run(token)
