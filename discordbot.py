@@ -17,7 +17,9 @@ async def on_command_error(ctx, error):
 async def on_message(message):
     if message.content.startswith("/ping"):
         await message.channel.send("pong")
-    if message.comtent.startswith("/dice "):
-        await message.channel.send(message.content)
+
+@bot.command()
+async def dice(ctx, arg):
+    await ctx.send(arg)
 
 bot.run(token)
