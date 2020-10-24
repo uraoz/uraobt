@@ -21,7 +21,7 @@ async def ping(ctx):
 
 @bot.command()
 async def help(ctx):
-    mes="""```/ping...pingです
+    me="""```/ping...pingです
 /roll...ダイスロール    例「/roll 2d6」->「5 3」
 /choice...ランダム選択    例「/choice a bbb cc」->「cc」
 /apchar...Apexのランセレ
@@ -29,7 +29,8 @@ async def help(ctx):
 /help...これ 不定期更新
 
 なんか思いついたらそのうち実装します```"""
-    await ctx.send(mes)
+    await ctx.send(me)
+
 @bot.command()
 async def roll(ctx, arg):
     mes = ""
