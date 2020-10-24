@@ -15,7 +15,7 @@ async def on_command_error(ctx, error):
 
 @bot.command(name="help")
 async def manual(ctx):
-    await ctx.send(manual)
+    await ctx.send("manual")
 
 @bot.command()
 async def ping(ctx):
