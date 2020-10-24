@@ -5,7 +5,6 @@ import traceback
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
-manual="/ping...pingです\n/roll...ダイスロール    例「/roll 2d6」->「5 3」\n/choice...ランダム選択    例「/choice a bbb cc」->「cc」/apchar...Apexのランセレ\n/vachar...Valoのランセレ\n/help...これ 不定期更新\nなんか思いついたらそのうち実装します"
 
 @bot.event
 async def on_command_error(ctx, error):
