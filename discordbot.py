@@ -24,6 +24,9 @@ async def roll(ctx, arg):
         mes=mes+str(random.choice(range(int(arg[1])))+1)+" "
     await ctx.send(mes)
 
+@bot.command()
+async def shuffle(ctx, arg):
+    await ctx.send(random.shuffle(range(arg)))
 
 @bot.command()
 async def choice(ctx, *args):
