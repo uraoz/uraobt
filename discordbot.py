@@ -51,4 +51,10 @@ async def vachar(ctx):
 async def apchar(ctx):
     await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
 
+
+manu="""/ping /shuffle /shufflist /roll /choice /vachar /apchar"""
+@bot.command(name='help')
+async def _help(ctx):
+    await ctx.send(manu)
+
 bot.run(token)
