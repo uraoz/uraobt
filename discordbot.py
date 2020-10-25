@@ -53,8 +53,6 @@ async def apchar(ctx):
 
 
 manu="""/ping /shuffle /shufflist /roll /choice /vachar /apchar"""
-@bot.command(name='help')
-async def _help(ctx):
-    await ctx.send(manu)
+
 
 bot.run(token)
