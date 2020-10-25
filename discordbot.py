@@ -37,7 +37,7 @@ async def shuffle(ctx, arg):
 async def shufflist(ctx, *args):
     random.shuffle(args)
     mes=""
-    for i in len(args):
+    for i in range(len(args)):
         mes=mes+str(args[i])+" "
     await ctx.send(mes)
 
