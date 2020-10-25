@@ -36,7 +36,7 @@ async def shuffle(ctx, arg):
 @bot.command()
 async def shufflist(ctx, *args):
     random.shuffle(args)
-    await ctx.send(' '.join(args))
+    await ctx.send('arguments: {}'.' '.join(args))
 
 @bot.command()
 async def choice(ctx, *args):
