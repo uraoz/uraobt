@@ -29,7 +29,7 @@ async def shuffle(ctx, arg):
     l=list(range(int(arg)))
     l=random.shuffle(l)
     for i in range(int(arg)):
-        await ctx.send(l[i]+" ")
+        await ctx.send(str(l[i])+" ")
 
 
 @bot.command()
