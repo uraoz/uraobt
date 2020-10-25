@@ -40,7 +40,7 @@ async def shufflist(ctx, *args):
     mes=""
     for i in range(len(args)):
         mes=mes+args[i]+" "
-    await ctx.send(mes)
+    await ctx.send(' '.join(mes))
 
 @bot.command()
 async def choice(ctx, *args):
