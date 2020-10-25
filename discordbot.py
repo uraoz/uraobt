@@ -26,7 +26,7 @@ async def roll(ctx, arg):
 
 @bot.command()
 async def shuffle(ctx, arg):
-    l=range(int(arg))
+    l=list(range(int(arg)))
     l=random.shuffle(l)
     for i in range(int(arg)):
         await ctx.send(l[i]+" ")
