@@ -58,7 +58,7 @@ async def apchar(ctx):
     """Apexのキャラクターのランセレ"""
     await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
 
-@bot.event
+@bot.event()
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name='$help'))
 
