@@ -3,7 +3,7 @@ import os
 import random
 import traceback
 
-bot = commands.Bot(command_prefix='$')
+bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
 @bot.event
@@ -60,6 +60,6 @@ async def apchar(ctx):
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name='$help'))
+    await bot.change_presence(status = discord.Status.idle, activity = discord.Game("/help"))
 
 bot.run(token)
