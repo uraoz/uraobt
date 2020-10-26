@@ -14,10 +14,12 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def ping(ctx):
+    """ping"""
     await ctx.send('pong')
 
 @bot.command()
 async def roll(ctx, arg):
+    """NdNを引数とする"""
     mes = ""
     arg = arg.split(sep='d',maxsplit=1)
     for i in range(int(arg[0])):
@@ -26,6 +28,7 @@ async def roll(ctx, arg):
 
 @bot.command()
 async def shuffle(ctx, arg):
+    """N番までの値を入れ替える"""
     l=list(range(int(arg)))
     random.shuffle(l)
     mes=""
@@ -35,24 +38,24 @@ async def shuffle(ctx, arg):
 
 @bot.command()
 async def shufflist(ctx, *args):
+    """N個の引数を入れ替える"""
     args=list(args)
     random.shuffle(args)
     await ctx.send(' '.join(args))
 
 @bot.command()
 async def choice(ctx, *args):
+    """N個の引数から一つ取り出す"""
     await ctx.send(random.choice(args))
 
 @bot.command()
 async def vachar(ctx):
+    """Valorantのキャラクターのランセレ"""
     await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
 
 @bot.command()
 async def apchar(ctx):
+    """Apexのキャラクターのランセレ"""
     await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
-
-
-manu="""/ping /shuffle /shufflist /roll /choice /vachar /apchar"""
-
 
 bot.run(token)
