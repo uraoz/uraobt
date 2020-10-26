@@ -56,8 +56,11 @@ async def vachar(ctx):
 
 @bot.command()
 async def clear(ctx, amount=5):
-    """無駄ログ消し デフォルトでamount=5"""
-    await ctx.channel.purge(limit=amount)
+    """無駄ログ消し デフォルトで5"""
+    if amount>20:
+        await ctx.send("やめなされやめなされ")
+    else:
+        await ctx.channel.purge(limit=amount)
 
 @bot.command()
 async def apchar(ctx):
