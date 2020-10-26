@@ -55,6 +55,11 @@ async def vachar(ctx):
     await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
 
 @bot.command()
+async def clear(ctx, amount=5):
+    """無駄ログ消し デフォルトでamount=5"""
+    await ctx.channel.purge(limit=amount)
+
+@bot.command()
 async def apchar(ctx):
     """Apexのキャラクターのランセレ"""
     await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
