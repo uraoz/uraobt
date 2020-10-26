@@ -15,7 +15,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     """ping"""
-    await ctx.send('pong')
+    await ctx.send(str(round(client.latency, 2)))
 
 @bot.command()
 async def roll(ctx, arg):
