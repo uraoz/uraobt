@@ -60,7 +60,6 @@ async def apchar(ctx):
 
 @bot.event
 async def on_ready():
-    activity = discord.Game(name="$help", type=discord.ActivityType.playing)
-    await bot.change_presence(status=discord.Status.idle, activity=activity)
+    await bot.change_presence(activity=discord.Game(name='$help'))
 
 bot.run(token)
