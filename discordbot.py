@@ -3,6 +3,7 @@ import os
 import discord
 import random
 import traceback
+import time
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
@@ -61,6 +62,31 @@ async def clear(ctx, amount=5):
         await ctx.send("やめなされやめなされ")
     else:
         await ctx.channel.purge(limit=amount)
+
+@bot.command()
+async def voicetest(ctx):
+    """test"""
+    if not discord.opus.is_loaded():
+        discord.opus.load_opus("heroku-buildpack-libopus")
+
+    voicestate=ctx.author.voive
+    if (not voice_state) or (not voice_state.channel):
+        await ctx.send("VCはいれ")
+        return
+    channel = voice_state.channel
+    await channel.connect()
+    time.sleep(2)
+    if not ctx.message.attachments:
+        await ctx.send("ファイルが添付されていません。")
+        return
+    await ctx.message.attachments[0].save("tmp.mp3")
+    voice_client = ctx.message.guild.voice_client
+    ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
+    voice_client.play(ffmpeg_audio_source)
+
+    await ctx.send("再生しました。")
+    await voice_client.disconnect()
+    await ctx.send("ボイスチャンネルから切断しました。")
 
 @bot.command()
 async def apchar(ctx):
