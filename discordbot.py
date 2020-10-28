@@ -75,8 +75,7 @@ async def voicejoin(ctx):
     await channel.connect()
 @bot.command()
 async def voicerun(ctx):
-    if not discord.opus.is_loaded():
-        discord.opus.load_opus("heroku-buildpack-libopus")
+    
     if not ctx.message.attachments:
         await ctx.send("ファイルが添付されていません。")
         return
