@@ -67,7 +67,7 @@ async def clear(ctx, amount=5):
 async def voicejoin(ctx):
     """test"""
 
-    voicestate=ctx.author.voive
+    voicestate=ctx.author.voice
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
