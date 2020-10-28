@@ -70,12 +70,13 @@ async def voicefile(ctx):
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
+    if not ctx.message.attachments:
+        await ctx.send("ファイル添付して")
+        return
     channel = voice_state.channel
     await channel.connect()
     time.sleep(1)
-    if not ctx.message.attachments:
-        await ctx.send("ファイルが添付されていません。")
-        return
+    
     await ctx.message.attachments[0].save("tmp.mp3")
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
