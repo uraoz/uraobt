@@ -64,18 +64,15 @@ async def clear(ctx, amount=5):
         await ctx.channel.purge(limit=amount)
 
 @bot.command()
-async def voicejoin(ctx):
-    """test"""
-
+async def voicefile(ctx):
+    """test機能"""
     voice_state=ctx.author.voice
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
     channel = voice_state.channel
     await channel.connect()
-@bot.command()
-async def voicerun(ctx):
-    
+    time.sleep(1)
     if not ctx.message.attachments:
         await ctx.send("ファイルが添付されていません。")
         return
@@ -83,13 +80,14 @@ async def voicerun(ctx):
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     voice_client.play(ffmpeg_audio_source)
+    await ctx.send("齊瀬")
 
-    await ctx.send("再生しました。")
+
 @bot.command()
 async def voiceexit(ctx):
     voice_client = ctx.message.guild.voice_client
     await voice_client.disconnect()
-    await ctx.send("ボイスチャンネルから切断しました。")
+    await ctx.send("切断")
 
 @bot.command()
 async def apchar(ctx):
