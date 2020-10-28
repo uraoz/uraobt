@@ -64,10 +64,8 @@ async def clear(ctx, amount=5):
         await ctx.channel.purge(limit=amount)
 
 @bot.command()
-async def voicetest(ctx):
+async def voicejoin(ctx):
     """test"""
-    if not discord.opus.is_loaded():
-        discord.opus.load_opus("heroku-buildpack-libopus")
 
     voicestate=ctx.author.voive
     if (not voice_state) or (not voice_state.channel):
@@ -75,7 +73,10 @@ async def voicetest(ctx):
         return
     channel = voice_state.channel
     await channel.connect()
-    time.sleep(2)
+@bot.command()
+async def voicerun(ctx):
+    if not discord.opus.is_loaded():
+        discord.opus.load_opus("heroku-buildpack-libopus")
     if not ctx.message.attachments:
         await ctx.send("ファイルが添付されていません。")
         return
@@ -85,6 +86,9 @@ async def voicetest(ctx):
     voice_client.play(ffmpeg_audio_source)
 
     await ctx.send("再生しました。")
+@bot.command()
+async def voiceexit(ctx):
+    voice_client = ctx.message.guild.voice_client
     await voice_client.disconnect()
     await ctx.send("ボイスチャンネルから切断しました。")
 
