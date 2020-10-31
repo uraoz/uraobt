@@ -74,7 +74,10 @@ async def voicefile(ctx):
         await ctx.send("ファイル添付して")
         return
     channel = voice_state.channel
-    await channel.connect()
+    try:
+        await channel.connect()
+    except:
+        await ctx.send("もう参加してる")
     time.sleep(1)
     
     await ctx.message.attachments[0].save("tmp.mp3")
