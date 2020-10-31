@@ -74,7 +74,7 @@ async def voicefile(ctx):
         await ctx.send("ファイル添付して")
         return
     voice_client = ctx.message.guild.voice_client
-    if not voice_client.is_connected():
+    if not discord.VoiceClient.is_connected():
         channel = voice_state.channel
         await channel.connect()
     time.sleep(1)
