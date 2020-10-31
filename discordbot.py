@@ -73,17 +73,18 @@ async def voicefile(ctx):
     if not ctx.message.attachments:
         await ctx.send("ファイル添付して")
         return
+    voice_client = ctx.message.guild.voice_client
     if not voice_client.is_connected():
         channel = voice_state.channel
         await channel.connect()
     time.sleep(1)
     
     await ctx.message.attachments[0].save("tmp.mp3")
-    voice_client = ctx.message.guild.voice_client
+    
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     voice_client.play(ffmpeg_audio_source)
-    await ctx.send("齊瀬")
-    
+    await ctx.send("再生")
+
 
 @bot.command()
 async def voiceexit(ctx):
