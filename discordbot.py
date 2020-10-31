@@ -83,8 +83,11 @@ async def voicefile(ctx):
     await ctx.message.attachments[0].save("tmp.mp3")
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
-    voice_client.play(ffmpeg_audio_source)
-    await ctx.send("再生")
+    try:
+        voice_client.play(ffmpeg_audio_source)
+        await ctx.send("再生")
+    except:
+        await ctx.send("再生中")
 
 
 @bot.command()
