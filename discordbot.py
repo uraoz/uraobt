@@ -90,8 +90,11 @@ async def voicefile(ctx):
 @bot.command()
 async def voiceexit(ctx):
     voice_client = ctx.message.guild.voice_client
-    await voice_client.disconnect()
-    await ctx.send("切断")
+    try:
+        await voice_client.disconnect()
+        await ctx.send("切断")
+    except:
+        await ctx.send("参加してない")
 
 @bot.command()
 async def apchar(ctx):
