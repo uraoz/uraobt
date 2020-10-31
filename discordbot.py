@@ -66,6 +66,7 @@ async def clear(ctx, amount=5):
 @bot.command()
 async def voicefile(ctx):
     """test機能"""
+
     voice_state=ctx.author.voice
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
@@ -74,7 +75,8 @@ async def voicefile(ctx):
         await ctx.send("ファイル添付して")
         return
     voice_client = ctx.message.guild.voice_client
-    if not discord.VoiceClient.is_connected():
+    vc=discord.VoiceClient
+    if vc.is_connected()==False:
         channel = voice_state.channel
         await channel.connect()
     time.sleep(1)
