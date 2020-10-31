@@ -74,10 +74,8 @@ async def voicefile(ctx):
         await ctx.send("ファイル添付して")
         return
     voice_client = ctx.message.guild.voice_client
-    
-    if voice_client.is_connected()==False:
-        channel = voice_state.channel
-        await channel.connect()
+    channel = voice_state.channel
+    await channel.connect()
     time.sleep(1)
     
     await ctx.message.attachments[0].save("tmp.mp3")
