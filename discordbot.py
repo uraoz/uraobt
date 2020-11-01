@@ -20,10 +20,13 @@ ytdl_format_options = {
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
+    'output': 'tmp.mp3'
     'default_search': 'auto',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
+
+
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
@@ -111,7 +114,27 @@ async def voicefile(ctx):
 
 @bot.command()
 async def voiceurl(ctx):
-    await ctx.send("test機能")
+        voice_state=ctx.author.voice
+    if (not voice_state) or (not voice_state.channel):
+        await ctx.send("VCはいれ")
+        return
+    if not ctx.message.attachments:
+        await ctx.send("urlか文字列指定して")
+        return
+    channel = voice_state.channel
+    try:
+        await channel.connect()
+    except:
+        await ctx.send("もう参加してる")
+    time.sleep(1)
+    ytdl.download([ctx])
+    voice_client = ctx.message.guild.voice_client
+    ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
+    try:
+        voice_client.play(ffmpeg_audio_source, after=voiceexit)
+        await ctx.send("再生")
+    except:
+        await ctx.send("再生中")
 
 
 @bot.command()
