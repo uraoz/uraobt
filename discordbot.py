@@ -126,7 +126,7 @@ async def voiceurl(ctx):
     except:
         await ctx.send("もう参加してる")
     time.sleep(1)
-    ytdl.download(ctx)
+    youtube_dl.YoutubeDL().extract_info(ctx, ytdl_format_options)
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
