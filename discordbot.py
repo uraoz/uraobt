@@ -86,7 +86,7 @@ async def clear(ctx, amount=5):
 
 @bot.command()
 async def voicefile(ctx):
-    """test機能"""
+    """添付された音声を再生"""
     voice_state=ctx.author.voice
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
@@ -115,6 +115,7 @@ async def voicefile(ctx):
 
 @bot.command()
 async def voiceurl(ctx, arg):
+    """URLか検索文字列を再生"""
     voice_state=ctx.author.voice
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
@@ -145,6 +146,7 @@ async def voiceurl(ctx, arg):
 
 @bot.command()
 async def voiceexit(ctx):
+    """VCから切断"""
     voice_client = ctx.message.guild.voice_client
     try:
         await voice_client.disconnect()
