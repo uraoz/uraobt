@@ -20,7 +20,7 @@ ytdl_format_options = {
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
-    'default_search': 'auto',
+    'default_search': 'ytsearch1:',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
 
@@ -100,7 +100,10 @@ async def voicefile(ctx):
     except:
         await ctx.send("もう参加してる")
     time.sleep(1)
-    
+    try:
+        os.remove('tmo.mp3')
+    except:
+        pass
     await ctx.message.attachments[0].save("tmp.mp3")
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
@@ -125,6 +128,10 @@ async def voiceurl(ctx, arg):
     except:
         await ctx.send("もう参加してる")
     time.sleep(1)
+    try:
+        os.remove('tmo.mp3')
+    except:
+        pass
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
         ydl.download([arg])
     voice_client = ctx.message.guild.voice_client
@@ -144,6 +151,10 @@ async def voiceexit(ctx):
         await ctx.send("切断")
     except:
         await ctx.send("参加してない")
+    try:
+        os.remove('tmo.mp3')
+    except:
+        pass
 
 @bot.command()
 async def apchar(ctx):
