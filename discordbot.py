@@ -112,7 +112,7 @@ async def voicefile(ctx):
 
 @bot.command()
 async def voiceurl(ctx):
-        voice_state=ctx.author.voice
+    voice_state=ctx.author.voice
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
