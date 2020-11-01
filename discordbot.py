@@ -136,7 +136,7 @@ async def voiceurl(ctx, arg):
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
         song_info = ydl.extract_info(arg, download=False)
     voice_client = ctx.message.guild.voice_client
-    ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info[0])
+    ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info["formats"][0]["url"])
     try:
         voice_client.play(ffmpeg_audio_source, after=voiceexit)
         await ctx.send("再生")
