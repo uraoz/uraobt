@@ -90,6 +90,9 @@ async def voicefile(ctx):
     except:
         await ctx.send("再生中")
 
+@bot.command()
+async def voiceurl(ctx):
+    await ctx.send("test機能")
 
 @bot.command()
 async def voiceexit(ctx):
