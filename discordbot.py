@@ -93,6 +93,7 @@ async def voicefile(ctx):
 @bot.command()
 async def voiceurl(ctx):
     await ctx.send("test機能")
+    
 
 @bot.command()
 async def voiceexit(ctx):
