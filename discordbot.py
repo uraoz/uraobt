@@ -12,7 +12,7 @@ youtube_dl.utils.bug_reports_message = lambda: ''
 
 ytdl_format_options = {
     'format': 'bestaudio/best',
-    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'outtmpl': 'tmp.mp3',
     'restrictfilenames': True,
     'noplaylist': True,
     'nocheckcertificate': True,
@@ -23,7 +23,6 @@ ytdl_format_options = {
     'default_search': 'auto',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
-ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
 
 bot = commands.Bot(command_prefix='/')
@@ -126,7 +125,8 @@ async def voiceurl(ctx):
     except:
         await ctx.send("もう参加してる")
     time.sleep(1)
-    youtube_dl.YoutubeDL().extract_info(ctx, ytdl_format_options)
+    with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
+        ydl.download([ctx])
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
