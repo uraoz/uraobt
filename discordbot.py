@@ -101,7 +101,7 @@ async def voicefile(ctx):
         await ctx.send("もう参加してる")
     time.sleep(1)
     try:
-        os.remove('tmo.mp3')
+        os.remove('tmp.mp3')
     except:
         pass
     await ctx.message.attachments[0].save("tmp.mp3")
@@ -129,7 +129,7 @@ async def voiceurl(ctx, arg):
         await ctx.send("もう参加してる")
     time.sleep(1)
     try:
-        os.remove('tmo.mp3')
+        os.remove('tmp.mp3')
     except:
         pass
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
