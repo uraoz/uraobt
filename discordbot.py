@@ -116,7 +116,7 @@ async def voiceurl(ctx, arg):
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
-    if not ctx.message.attachments:
+    if not arg:
         await ctx.send("urlか文字列指定して")
         return
     channel = voice_state.channel
