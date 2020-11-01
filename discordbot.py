@@ -20,7 +20,6 @@ ytdl_format_options = {
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
-    'output': 'tmp.mp3'
     'default_search': 'auto',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
@@ -127,7 +126,7 @@ async def voiceurl(ctx):
     except:
         await ctx.send("もう参加してる")
     time.sleep(1)
-    ytdl.download([ctx])
+    ytdl.download(ctx)
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
