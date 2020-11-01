@@ -63,6 +63,7 @@ async def clear(ctx, amount=5):
     else:
         await ctx.channel.purge(limit=amount)
 
+
 @bot.command()
 async def voicefile(ctx):
     """test機能"""
@@ -84,7 +85,7 @@ async def voicefile(ctx):
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
-        voice_client.play(ffmpeg_audio_source)
+        voice_client.play(ffmpeg_audio_source, after=voiceexit)
         await ctx.send("再生")
     except:
         await ctx.send("再生中")
