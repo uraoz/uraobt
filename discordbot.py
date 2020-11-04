@@ -122,7 +122,7 @@ async def voicefile(ctx):
 
 @bot.command()
 async def voiceurl(ctx, *args):
-    """URLか検索文字列を再生"""
+    """URLか検索文字列を再生 ニコニコURLやらYoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
     song_there = os.path.isfile("tmp.mp3")
     try:
         if song_there:
@@ -156,10 +156,10 @@ async def voiceurl(ctx, *args):
         except:
             duration=info_dict["entries"][0]["duration"]
         if(int(duration))>1200:
-            await ctx.send("長すぎ")
+            await ctx.send("長すぎ 20分未満で")
             return
         ydl.download([arg])
-    
+
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
             os.rename(file, 'tmp.mp3')
