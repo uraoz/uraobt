@@ -156,9 +156,10 @@ async def voiceurl(ctx, *args):
         except:
             duration=info_dict["entries"][0]["duration"]
         if(int(duration))>1200:
-            ctx.send("長すぎ")
+            await ctx.send("長すぎ")
             return
         ydl.download([arg])
+    
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
             os.rename(file, 'tmp.mp3')
