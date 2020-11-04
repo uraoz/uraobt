@@ -152,8 +152,8 @@ async def voiceurl(ctx, *args):
         duration=info_dict["duration"]
     except:
         duration=info_dict["entries"][0]["duration"]
-    if(int(duration))>1800:
-        await ctx.send("長すぎ 30分未満で")
+    if(int(duration))>7200:
+        await ctx.send("長すぎ 120分未満で")
         return
     try:
         await ctx.send(info_dict['title']+")をロード")
