@@ -114,9 +114,10 @@ async def voicefile(ctx):
         await ctx.send("再生中")
 
 @bot.command()
-async def voiceurl(ctx, arg):
+async def voiceurl(ctx, *args):
     """URLか検索文字列を再生"""
     voice_state=ctx.author.voice
+    arg=''.join(args)
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
@@ -127,7 +128,7 @@ async def voiceurl(ctx, arg):
     try:
         await channel.connect()
     except:
-        await ctx.send("もう参加してる")
+        pass
     time.sleep(1)
     try:
         os.remove('tmp.mp3')
@@ -143,7 +144,7 @@ async def voiceurl(ctx, arg):
         ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info["entries"][0]["url"])
         await ctx.send(song_info["entries"][0]["title"]+"  https://www.youtube.com/watch?v="+song_info["entries"][0]["id"]+"　をロード")
     try:
-        voice_client.play(ffmpeg_audio_source, after=voiceexit)
+        voice_client.play(ffmpeg_audio_source)
 
     except:
         await ctx.send("すでに再生中")
