@@ -152,13 +152,13 @@ async def voiceurl(ctx, *args):
         duration=info_dict["duration"]
     except:
         duration=info_dict["entries"][0]["duration"]
-    if(int(duration))>1200:
-        await ctx.send("長すぎ 20分未満で")
+    if(int(duration))>1800:
+        await ctx.send("長すぎ 30分未満で")
         return
     try:
         await ctx.send(info_dict['title']+")をロード")
     except:
-        await ctx.send(info_dict['entries'][0]['title']+"(https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+")をロード")
+        await ctx.send(info_dict['entries'][0]['title']+"( https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+" )をロード")
 
     ydl.download([arg])
     for file in os.listdir("./"):
