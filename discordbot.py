@@ -140,7 +140,7 @@ async def voiceurl(ctx, *args):
     except:
         pass
     time.sleep(1)
-    voice = get(bot.voice_clients, guild=ctx.guild)
+
     try:
         os.remove('tmp.mp3')
     except:
@@ -155,7 +155,6 @@ async def voiceurl(ctx, *args):
     if(int(duration))>1200:
         await ctx.send("長すぎ 20分未満で")
         return
-
     try:
         await ctx.send(info_dict['title']+")をロード")
     except:
