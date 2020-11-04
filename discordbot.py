@@ -151,11 +151,16 @@ async def voiceurl(ctx, *args):
         pass
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
         ydl.download([arg])
+        info_dict = ydl.extract_info(arg, download=False)
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
             os.rename(file, 'tmp.mp3')
     voice.play(discord.FFmpegPCMAudio("tmp.mp3"))
     voice.volume = 100
+    try:
+        await ctx.send(info_dict['title']+"("+info_dict['id']+")をロード")
+    except:
+        await ctx.send(info_dict['entries'][0]['title']+"("+info_dict['entries'][0]['id']+")をロード")
     voice.is_playing()
 
 
