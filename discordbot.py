@@ -151,6 +151,13 @@ async def voiceurl(ctx, *args):
         pass
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
         info_dict = ydl.extract_info(arg, download=False)
+        try:
+            duration=info_dict["duration"]
+        except:
+            duration=info_dict["entries"][0]["duration"]
+        if(int(duration))>1200:
+            ctx.send("長すぎ")
+            return
         ydl.download([arg])
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
