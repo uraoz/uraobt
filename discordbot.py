@@ -150,8 +150,8 @@ async def voiceurl(ctx, *args):
     except:
         pass
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
-        ydl.download([arg])
         info_dict = ydl.extract_info(arg, download=False)
+        ydl.download([arg])
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
             os.rename(file, 'tmp.mp3')
