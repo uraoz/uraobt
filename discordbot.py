@@ -118,7 +118,7 @@ async def voicefile(ctx):
 
 @bot.command()
 async def voiceurl(ctx, *args):
-    """URLか検索文字列を再生 ニコニコURLやらYoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
+    """URLか検索文字列を再生 YoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
     song_there = os.path.isfile("tmp.mp3")
     try:
         if song_there:
