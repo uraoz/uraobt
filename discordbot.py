@@ -83,8 +83,8 @@ async def vachar(ctx):
     await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
 
 @bot.command()
-async def clear(ctx, amount=5):
-    """無駄ログ消し デフォルトで5"""
+async def clear(ctx, amount=2):
+    """無駄ログ消し デフォルトで2 amount=Nで量指定"""
     if amount>20:
         await ctx.send("やめなされやめなされ")
     else:
