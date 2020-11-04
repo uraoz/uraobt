@@ -138,13 +138,15 @@ async def voiceurl(ctx, arg):
     voice_client = ctx.message.guild.voice_client
     try:
         ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info["formats"][0]["url"])
+        await ctx.send(song_info["title"]+"　をロード")
     except:
         ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info["entries"][0]["url"])
+        await ctx.send(song_info["entries"][0]["title"]+"  https://www.youtube.com/watch?v="+song_info["entries"][0]["id"]+"　をロード")
     try:
         voice_client.play(ffmpeg_audio_source, after=voiceexit)
-        await ctx.send("再生")
+
     except:
-        await ctx.send("再生中")
+        await ctx.send("すでに再生中")
 
 
 @bot.command()
@@ -157,7 +159,7 @@ async def voiceexit(ctx):
     except:
         await ctx.send("参加してない")
     try:
-        os.remove('tmo.mp3')
+        os.remove('tmp.mp3')
     except:
         pass
 
