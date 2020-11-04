@@ -19,14 +19,10 @@ ytdl_format_options = {
     'noplaylist': True,
     'nocheckcertificate': True,
     'ignoreerrors': False,
+    'outtmpl': 'tmp.mp3',
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
     'default_search': 'ytsearch1:',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
@@ -149,27 +145,34 @@ async def voiceurl(ctx, *args):
         os.remove('tmp.mp3')
     except:
         pass
-    with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
-        info_dict = ydl.extract_info(arg, download=False)
-        try:
-            duration=info_dict["duration"]
-        except:
-            duration=info_dict["entries"][0]["duration"]
-        if(int(duration))>1200:
-            await ctx.send("長すぎ 20分未満で")
-            return
-        ydl.download([arg])
+    
+    ydl = youtube_dl.YoutubeDL(ytdl_format_options)
+    info_dict = ydl.extract_info(arg, download=False)
+    try:
+        duration=info_dict["duration"]
+    except:
+        duration=info_dict["entries"][0]["duration"]
+    if(int(duration))>1200:
+        await ctx.send("長すぎ 20分未満で")
+        return
 
-    for file in os.listdir("./"):
-        if file.endswith(".mp3"):
-            os.rename(file, 'tmp.mp3')
-    voice.play(discord.FFmpegPCMAudio("tmp.mp3"))
-    voice.volume = 100
     try:
         await ctx.send(info_dict['title']+")をロード")
     except:
         await ctx.send(info_dict['entries'][0]['title']+"(https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+")をロード")
-    voice.is_playing()
+
+    ydl.download([arg])
+    for file in os.listdir("./"):
+        if file.endswith(".mp3"):
+            os.rename(file, 'tmp.mp3')
+    voice_client = ctx.message.guild.voice_client
+    ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
+    try:
+        voice_client.play(ffmpeg_audio_source)
+
+    except:
+        await ctx.send("すでに再生中")
+
 
 
 @bot.command()
