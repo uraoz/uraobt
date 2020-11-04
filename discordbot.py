@@ -1,6 +1,8 @@
 from discord.ext import commands
 import os
+from os import system
 import discord
+from discord import FFmpegPCMAudio
 import asyncio
 import random
 import traceback
@@ -12,7 +14,6 @@ youtube_dl.utils.bug_reports_message = lambda: ''
 
 ytdl_format_options = {
     'format': 'bestaudio/best',
-    'outtmpl': 'tmp.mp3',
     'restrictfilenames': True,
     'noplaylist': True,
     'nocheckcertificate': True,
@@ -20,6 +21,11 @@ ytdl_format_options = {
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
     'default_search': 'ytsearch1:',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
@@ -116,6 +122,13 @@ async def voicefile(ctx):
 @bot.command()
 async def voiceurl(ctx, *args):
     """URLか検索文字列を再生"""
+    song_there = os.path.isfile("tmp.mp3")
+    try:
+        if song_there:
+            os.remove("tmp.mp3")
+    except PermissionError:
+        await ctx.send("動いてたらバグるから一回とめて")
+        return
     voice_state=ctx.author.voice
     arg=''.join(args)
     if (not voice_state) or (not voice_state.channel):
@@ -130,24 +143,19 @@ async def voiceurl(ctx, *args):
     except:
         pass
     time.sleep(1)
+    voice = get(bot.voice_clients, guild=ctx.guild)
     try:
         os.remove('tmp.mp3')
     except:
         pass
     with youtube_dl.YoutubeDL(ytdl_format_options) as ydl:
-        song_info = ydl.extract_info(arg, download=False)
-    voice_client = ctx.message.guild.voice_client
-    try:
-        ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info["formats"][0]["url"])
-        await ctx.send(song_info["title"]+"　をロード")
-    except:
-        ffmpeg_audio_source = discord.FFmpegPCMAudio(song_info["entries"][0]["url"])
-        await ctx.send(song_info["entries"][0]["title"]+"  https://www.youtube.com/watch?v="+song_info["entries"][0]["id"]+"　をロード")
-    try:
-        voice_client.play(ffmpeg_audio_source)
-
-    except:
-        await ctx.send("すでに再生中")
+        ydl.download([arg])
+    for file in os.listdir("./"):
+        if file.endswith(".mp3"):
+            os.rename(file, 'tmp.mp3')
+    voice.play(discord.FFmpegPCMAudio("tmp.mp3"))
+    voice.volume = 100
+    voice.is_playing()
 
 
 @bot.command()
