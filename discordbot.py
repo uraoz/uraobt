@@ -158,9 +158,9 @@ async def voiceurl(ctx, *args):
     voice.play(discord.FFmpegPCMAudio("tmp.mp3"))
     voice.volume = 100
     try:
-        await ctx.send(info_dict['title']+"("+info_dict['id']+")をロード")
+        await ctx.send(info_dict['title']+")をロード")
     except:
-        await ctx.send(info_dict['entries'][0]['title']+"("+info_dict['entries'][0]['id']+")をロード")
+        await ctx.send(info_dict['entries'][0]['title']+"(https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+")をロード")
     voice.is_playing()
 
 
