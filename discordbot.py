@@ -202,5 +202,5 @@ async def apchar(ctx):
 async def on_ready():
     await bot.change_presence(status = discord.Status.idle, activity = discord.Game("/help"))
 
-bot.add_cog(Greet(bot=bot))
+bot.add_cog(sys(bot=bot))
 bot.run(token)
