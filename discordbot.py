@@ -37,10 +37,15 @@ async def on_command_error(ctx, error):
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send(error_msg)
 
-@bot.command()
-async def ping(ctx):
-    """ping"""
-    await ctx.send(str(round(bot.latency, 2)))
+class sys(commands.Cog):
+    def __init__(self,bot):
+        super().__init__()
+        self.bot = bot
+
+    @commands.command()
+    async def ping(ctx):
+        """ping"""
+        await ctx.send(str(round(bot.latency, 2)))
 
 @bot.command()
 async def roll(ctx, arg):
@@ -197,4 +202,5 @@ async def apchar(ctx):
 async def on_ready():
     await bot.change_presence(status = discord.Status.idle, activity = discord.Game("/help"))
 
+bot.add_cog(Greet(bot=bot))
 bot.run(token)
