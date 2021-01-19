@@ -47,9 +47,19 @@ class sys(commands.Cog):
         """ping"""
         await ctx.send(str(round(bot.latency, 2)))
 
+
+    @commands.command()
+    async def clear(self,ctx, amount=3):
+        """無駄ログ消し デフォルトで3 amount=Nで量指定"""
+        if amount>20:
+            await ctx.send("やめなされやめなされ")
+        else:
+            await ctx.channel.purge(limit=amount)
+
 bot.add_cog(sys(bot=bot))
 
 class rand(commands.Cog):
+    """乱数系"""
     def __init__(self,bot):
         super().__init__()
         self.bot = bot
@@ -88,121 +98,122 @@ class rand(commands.Cog):
     async def vachar(self,ctx):
         """Valorantのキャラクターのランセレ"""
         await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
+    @commands.command()
+    async def apchar(self,ctx):
+        """Apexのキャラクターのランセレ"""
+        await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
+
 bot.add_cog(rand(bot=bot))
-@bot.command()
-async def clear(ctx, amount=3):
-    """無駄ログ消し デフォルトで3 amount=Nで量指定"""
-    if amount>20:
-        await ctx.send("やめなされやめなされ")
-    else:
-        await ctx.channel.purge(limit=amount)
 
 
-@bot.command()
-async def voicefile(ctx):
-    """添付された音声を再生"""
-    voice_state=ctx.author.voice
-    if (not voice_state) or (not voice_state.channel):
-        await ctx.send("VCはいれ")
-        return
-    if not ctx.message.attachments:
-        await ctx.send("ファイル添付して")
-        return
-    channel = voice_state.channel
-    try:
-        await channel.connect()
-    except:
-        await ctx.send("もう参加してる")
-    time.sleep(1)
-    try:
-        os.remove('tmp.mp3')
-    except:
-        pass
-    await ctx.message.attachments[0].save("tmp.mp3")
-    voice_client = ctx.message.guild.voice_client
-    ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
-    try:
-        voice_client.play(ffmpeg_audio_source, after=voiceexit)
-        await ctx.send("再生")
-    except:
-        await ctx.send("再生中")
+class voice_chat(commands.Cog):
+    """VC周り"""
+    def __init__(self,bot):
+        super().__init__()
+        self.bot = bot
 
-@bot.command()
-async def voiceurl(ctx, *args):
-    """URLか検索文字列を再生 YoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
-    song_there = os.path.isfile("tmp.mp3")
-    try:
-        if song_there:
-            os.remove("tmp.mp3")
-    except PermissionError:
-        await ctx.send("動いてたらバグるから一回とめて")
-        return
-    voice_state=ctx.author.voice
-    arg=''.join(args)
-    if (not voice_state) or (not voice_state.channel):
-        await ctx.send("VCはいれ")
-        return
-    if not arg:
-        await ctx.send("urlか文字列指定して")
-        return
-    channel = voice_state.channel
-    try:
-        await channel.connect()
-    except:
-        pass
-    time.sleep(1)
+    @commands.command()
+    async def voicefile(self,ctx):
+        """添付された音声を再生"""
+        voice_state=ctx.author.voice
+        if (not voice_state) or (not voice_state.channel):
+            await ctx.send("VCはいれ")
+            return
+        if not ctx.message.attachments:
+            await ctx.send("ファイル添付して")
+            return
+        channel = voice_state.channel
+        try:
+            await channel.connect()
+        except:
+            await ctx.send("もう参加してる")
+        time.sleep(1)
+        try:
+            os.remove('tmp.mp3')
+        except:
+            pass
+        await ctx.message.attachments[0].save("tmp.mp3")
+        voice_client = ctx.message.guild.voice_client
+        ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
+        try:
+            voice_client.play(ffmpeg_audio_source, after=voiceexit)
+            await ctx.send("再生")
+        except:
+            await ctx.send("再生中")
 
-    try:
-        os.remove('tmp.mp3')
-    except:
-        pass
+    @commands.command()
+    async def voiceurl(self,ctx, *args):
+        """URLか検索文字列を再生 YoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
+        song_there = os.path.isfile("tmp.mp3")
+        try:
+            if song_there:
+                os.remove("tmp.mp3")
+        except PermissionError:
+            await ctx.send("動いてたらバグるから一回とめて")
+            return
+        voice_state=ctx.author.voice
+        arg=''.join(args)
+        if (not voice_state) or (not voice_state.channel):
+            await ctx.send("VCはいれ")
+            return
+            if not arg:
+            await ctx.send("urlか文字列指定して")
+            return
+        channel = voice_state.channel
+        try:
+            await channel.connect()
+        except:
+            pass
+        time.sleep(1)
+
+        try:
+            os.remove('tmp.mp3')
+        except:
+            pass
     
-    ydl = youtube_dl.YoutubeDL(ytdl_format_options)
-    info_dict = ydl.extract_info(arg, download=False)
-    try:
-        duration=info_dict["duration"]
-    except:
-        duration=info_dict["entries"][0]["duration"]
-    if(int(duration))>7200:
-        await ctx.send("長すぎ 120分未満で")
-        return
-    try:
-        await ctx.send(info_dict['title']+")をロード")
-    except:
-        await ctx.send(info_dict['entries'][0]['title']+"( https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+" )をロード")
+        ydl = youtube_dl.YoutubeDL(ytdl_format_options)
+        info_dict = ydl.extract_info(arg, download=False)
+        try:
+            duration=info_dict["duration"]
+        except:
+            duration=info_dict["entries"][0]["duration"]
+        if(int(duration))>7200:
+            await ctx.send("長すぎ 120分未満で")
+            return
+        try:
+            await ctx.send(info_dict['title']+")をロード")
+        except:
+            await ctx.send(info_dict['entries'][0]['title']+"( https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+" )をロード")
 
-    ydl.download([arg])
-    for file in os.listdir("./"):
-        if file.endswith(".mp3"):
-            os.rename(file, 'tmp.mp3')
-    voice_client = ctx.message.guild.voice_client
-    ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
-    try:
-        voice_client.play(ffmpeg_audio_source)
+        ydl.download([arg])
+        for file in os.listdir("./"):
+            if file.endswith(".mp3"):
+                os.rename(file, 'tmp.mp3')
+        voice_client = ctx.message.guild.voice_client
+        ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
+        try:
+            voice_client.play(ffmpeg_audio_source)
 
-    except:
-        await ctx.send("すでに再生中")
+        except:
+            await ctx.send("すでに再生中")
 
 
 
-@bot.command()
-async def voiceexit(ctx):
-    """VCから切断"""
-    voice_client = ctx.message.guild.voice_client
-    try:
-        await voice_client.disconnect()
-        await ctx.send("切断")
-    except:
-        await ctx.send("参加してない")
-    try:
-        os.remove('tmp.mp3')
-    except:
-        pass
+    @commands.command()
+    async def voiceexit(self,ctx):
+        """VCから切断"""
+        voice_client = ctx.message.guild.voice_client
+        try:
+            await voice_client.disconnect()
+            await ctx.send("切断")
+        except:
+            await ctx.send("参加してない")
+        try:
+            os.remove('tmp.mp3')
+        except:
+            pass
 
-@bot.command()
-async def apchar(ctx):
-    """Apexのキャラクターのランセレ"""
-    await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
+bot.add_cog(voice_chat(bot=bot))
 
 @bot.event
 async def on_ready():
