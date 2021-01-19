@@ -157,7 +157,7 @@ class voice_chat(commands.Cog):
             await ctx.send("VCはいれ")
             return
             if not arg:
-            await ctx.send("urlか文字列指定して")
+                await ctx.send("urlか文字列指定して")
             return
         channel = voice_state.channel
         try:
@@ -193,10 +193,8 @@ class voice_chat(commands.Cog):
         ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
         try:
             voice_client.play(ffmpeg_audio_source)
-
         except:
             await ctx.send("すでに再生中")
-
 
 
     @commands.command()
