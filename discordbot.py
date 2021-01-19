@@ -47,42 +47,48 @@ class sys(commands.Cog):
         """ping"""
         await ctx.send(str(round(bot.latency, 2)))
 
-@bot.command()
-async def roll(ctx, arg):
-    """NdNを引数とする"""
-    mes = ""
-    arg = arg.split(sep='d',maxsplit=1)
-    for i in range(int(arg[0])):
-        mes=mes+str(random.choice(range(int(arg[1])))+1)+" "
-    await ctx.send(mes)
+bot.add_cog(sys(bot=bot))
 
-@bot.command()
-async def shuffle(ctx, arg):
-    """N番までの値を入れ替える"""
-    l=list(range(int(arg)))
-    random.shuffle(l)
-    mes=""
-    for i in range(int(arg)):
-        mes=mes+str(l[i]+1)+" "
-    await ctx.send(mes)
+class random(commands.Cog):
+    def __init__(self,bot):
+        super().__init__()
+        self.bot = bot
+    @commands.command()
+    async def roll(ctx, arg):
+        """NdNを引数とする"""
+        mes = ""
+        arg = arg.split(sep='d',maxsplit=1)
+        for i in range(int(arg[0])):
+            mes=mes+str(random.choice(range(int(arg[1])))+1)+" "
+        await ctx.send(mes)
 
-@bot.command()
-async def shufflist(ctx, *args):
-    """N個の引数を入れ替える"""
-    args=list(args)
-    random.shuffle(args)
-    await ctx.send(' '.join(args))
+    @commands.command()
+    async def shuffle(ctx, arg):
+        """N番までの値を入れ替える"""
+        l=list(range(int(arg)))
+        random.shuffle(l)
+        mes=""
+        for i in range(int(arg)):
+            mes=mes+str(l[i]+1)+" "
+        await ctx.send(mes)
 
-@bot.command()
-async def choice(ctx, *args):
-    """N個の引数から一つ取り出す"""
-    await ctx.send(random.choice(args))
+    @commands.command()
+    async def shufflist(ctx, *args):
+        """N個の引数を入れ替える"""
+        args=list(args)
+        random.shuffle(args)
+        await ctx.send(' '.join(args))
 
-@bot.command()
-async def vachar(ctx):
-    """Valorantのキャラクターのランセレ"""
-    await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
+    @commands.command()
+    async def choice(ctx, *args):
+        """N個の引数から一つ取り出す"""
+        await ctx.send(random.choice(args))
 
+    @commands.command()
+    async def vachar(ctx):
+        """Valorantのキャラクターのランセレ"""
+        await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
+bot.add_cog(random(bot=bot))
 @bot.command()
 async def clear(ctx, amount=3):
     """無駄ログ消し デフォルトで3 amount=Nで量指定"""
@@ -202,5 +208,4 @@ async def apchar(ctx):
 async def on_ready():
     await bot.change_presence(status = discord.Status.idle, activity = discord.Game("/help"))
 
-bot.add_cog(sys(bot=bot))
 bot.run(token)
