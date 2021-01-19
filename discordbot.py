@@ -49,7 +49,7 @@ class sys(commands.Cog):
 
 bot.add_cog(sys(bot=bot))
 
-class random(commands.Cog):
+class rand(commands.Cog):
     def __init__(self,bot):
         super().__init__()
         self.bot = bot
@@ -88,7 +88,7 @@ class random(commands.Cog):
     async def vachar(self,ctx):
         """Valorantのキャラクターのランセレ"""
         await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
-bot.add_cog(random(bot=bot))
+bot.add_cog(rand(bot=bot))
 @bot.command()
 async def clear(ctx, amount=3):
     """無駄ログ消し デフォルトで3 amount=Nで量指定"""
