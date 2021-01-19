@@ -43,7 +43,7 @@ class sys(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def ping(ctx):
+    async def ping(self,ctx):
         """ping"""
         await ctx.send(str(round(bot.latency, 2)))
 
@@ -54,7 +54,7 @@ class random(commands.Cog):
         super().__init__()
         self.bot = bot
     @commands.command()
-    async def roll(ctx, arg):
+    async def roll(self,ctx, arg):
         """NdNを引数とする"""
         mes = ""
         arg = arg.split(sep='d',maxsplit=1)
@@ -63,7 +63,7 @@ class random(commands.Cog):
         await ctx.send(mes)
 
     @commands.command()
-    async def shuffle(ctx, arg):
+    async def shuffle(self,ctx, arg):
         """N番までの値を入れ替える"""
         l=list(range(int(arg)))
         random.shuffle(l)
@@ -73,19 +73,19 @@ class random(commands.Cog):
         await ctx.send(mes)
 
     @commands.command()
-    async def shufflist(ctx, *args):
+    async def shufflist(self,ctx, *args):
         """N個の引数を入れ替える"""
         args=list(args)
         random.shuffle(args)
         await ctx.send(' '.join(args))
 
     @commands.command()
-    async def choice(ctx, *args):
+    async def choice(self,ctx, *args):
         """N個の引数から一つ取り出す"""
         await ctx.send(random.choice(args))
 
     @commands.command()
-    async def vachar(ctx):
+    async def vachar(self,ctx):
         """Valorantのキャラクターのランセレ"""
         await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
 bot.add_cog(random(bot=bot))
