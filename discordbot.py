@@ -36,6 +36,7 @@ async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send(error_msg)
+    print(error_msg)
 
 class sys(commands.Cog):
     def __init__(self,bot):
@@ -142,7 +143,7 @@ class voice_chat(commands.Cog):
             await ctx.send("再生中")
 
     @commands.command()
-    async def voiceurl(self,ctx, *args):
+    async def voiceurl(self,ctx,*args):
         """URLか検索文字列を再生 YoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
         song_there = os.path.isfile("tmp.mp3")
         try:
@@ -156,8 +157,8 @@ class voice_chat(commands.Cog):
         if (not voice_state) or (not voice_state.channel):
             await ctx.send("VCはいれ")
             return
-            if not arg:
-                await ctx.send("urlか文字列指定して")
+        if not arg:
+            await ctx.send("urlか文字列指定して")
             return
         channel = voice_state.channel
         try:
