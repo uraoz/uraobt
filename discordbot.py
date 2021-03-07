@@ -199,7 +199,7 @@ async def voiceurl(ctx,*args):
             isCreated = False
             msg = None
             while fla < 7000:
-                fla = fla + 20
+                fla = fla + 24
                 img = Image.open(f"frames/frame{fla}.jpg")
                 frame = generate_frame(img,60)
                 if frame != None:
