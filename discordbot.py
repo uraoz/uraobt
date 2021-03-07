@@ -197,6 +197,7 @@ async def voiceurl(ctx,*args):
         if arg=="badapple":
             fla = 0
             isCreated = False
+            edited = 0
             msg = None
             while fla < 7300:
                 fla = fla + 24
@@ -207,8 +208,14 @@ async def voiceurl(ctx,*args):
                         msg = await ctx.send(frame)
                         isCreated = True
                     else:
-                        await msg.edit(content=frame)
-                        await asyncio.sleep(0.96)
+                        if edited < 4:
+                            await msg.edit(content=frame)
+                            await asyncio.sleep(0.96)
+                        else:
+                            await ctx.channel.purge(1)
+                            msg = await ctx.send(frame)
+                            edited++
+            await ctx.channel.purge(1)
                         
     except:
         await ctx.send("すでに再生中")
