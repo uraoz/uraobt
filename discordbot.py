@@ -200,6 +200,7 @@ async def voiceurl(ctx,*args):
             edited = 0
             msg = None
             while fla < 7300:
+                await asyncio.sleep(0.5)
                 fla = fla + 12
                 img = Image.open(f"frames/frame{fla}.jpg")
                 frame = generate_frame(img,60)
@@ -210,12 +211,10 @@ async def voiceurl(ctx,*args):
                     else:
                         if edited < 5:
                             await msg.edit(content=frame)
-                            await asyncio.sleep(0.5)
                             edited = edited + 1
                         else:
                             await ctx.channel.purge(1)
                             msg = await ctx.send(frame)
-                            await asyncio.sleep(0.5)
                             edited = 0
             await ctx.channel.purge(1)
                         
