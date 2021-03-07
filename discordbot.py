@@ -194,14 +194,14 @@ async def voiceurl(ctx,*args):
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
-        voice_client.play(ffmpeg_audio_source)
+        #voice_client.play(ffmpeg_audio_source)
         if arg=="badapple":
-            i = 0
+            fla = 0
             isCreated = False
             msg = None
-            while i < 7000:
-                i = i + 3
-                img = Image.open(f"frames/frame{i}.jpg")
+            while fla < 7000:
+                fla = fla + 3
+                img = Image.open(f"frames/frame{fla}.jpg")
                 frame = generate_frame(img,60)
                 if frame != None:
                     if isCreated == False:
