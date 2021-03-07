@@ -199,7 +199,7 @@ async def voiceurl(ctx,*args):
             isCreated = False
             msg = None
             while fla < 7000:
-                fla = fla + 20
+                fla = fla + 60
                 img = Image.open(f"frames/frame{fla}.jpg")
                 frame = generate_frame(img,60)
                 if frame != None:
@@ -208,7 +208,7 @@ async def voiceurl(ctx,*args):
                         isCreated = True
                     else:
                         await msg.edit(content=frame)
-                        await asyncio.sleep(1)
+                        await asyncio.sleep(0.3)
                         
     except:
         await ctx.send("すでに再生中")
