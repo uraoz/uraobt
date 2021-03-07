@@ -214,7 +214,7 @@ async def voiceurl(ctx,*args):
                         else:
                             await ctx.channel.purge(1)
                             msg = await ctx.send(frame)
-                            edited++
+                            edited = edited + 1
             await ctx.channel.purge(1)
                         
     except:
