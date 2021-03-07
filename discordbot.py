@@ -194,7 +194,7 @@ async def voiceurl(ctx,*args):
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
         voice_client.play(ffmpeg_audio_source)
-        if arg=="badapple":
+        if arg=="bad apple":
             i = 0
             isCreated = False
             msg = None
