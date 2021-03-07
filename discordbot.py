@@ -14,10 +14,6 @@ import time
 ASCII_CHARS = ["-","-","-","-","-","-","-","-","-","-","@"]
 youtube_dl.utils.bug_reports_message = lambda: ''
 
-
-if __name__=="__main__":
-    main()
-
 ytdl_format_options = {
     'format': 'bestaudio/best',
     'restrictfilenames': True,
