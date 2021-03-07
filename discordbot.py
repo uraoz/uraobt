@@ -121,7 +121,7 @@ async def voicefile(ctx):
         await ctx.send("再生中")
 
 @bot.command()
-async def voiceurl(ctx):
+async def voiceurl(ctx,*args):
     """URLか検索文字列を再生 YoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
     song_there = os.path.isfile("tmp.mp3")
     try:
