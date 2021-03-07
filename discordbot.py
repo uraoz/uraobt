@@ -15,27 +15,6 @@ import time
 ASCII_CHARS = ["-","-","-","-","-","-","-","-","-","-","@"]
 youtube_dl.utils.bug_reports_message = lambda: ''
 
-def extractFrames(pathIn, pathOut):
-    if not os.path.exists(pathOut):
-        os.mkdir(pathOut)
-
-    cap = cv2.VideoCapture(pathIn)
-    count = 0
-
-    while (cap.isOpened()):
-
-        ret, frame = cap.read()
-
-        if ret == True:
-            cv2.imwrite(os.path.join(pathOut, "frames/frame{:06d}.jpg".format(count)), frame)
-            count += 1
-        else:
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-
-extractFrames('video.mp4', 'flames')
 
 if __name__=="__main__":
     main()
