@@ -216,7 +216,7 @@ async def voiceurl(ctx,*args):
                             await ctx.channel.purge(1)
                             msg = await ctx.send(frame)
                             edited = 0
-            await ctx.channel.purge(1)
+            await ctx.channel.purge(limit = 1)
                         
     except:
         await ctx.send("すでに再生中")
