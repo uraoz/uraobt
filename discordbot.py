@@ -9,7 +9,9 @@ import random
 import traceback
 import time
 import youtube_dl
-
+from PIL import Image
+import time
+ASCII_CHARS = ["-","-","-","-","-","-","-","-","-","-","@"]
 youtube_dl.utils.bug_reports_message = lambda: ''
 
 
@@ -26,7 +28,27 @@ ytdl_format_options = {
     'default_search': 'ytsearch1:',
     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
+def resized_gray_image(image ,new_width=70):
+    width,height = image.size
+    aspect_ratio = height/width
+    new_height = 20
+    resized_gray_image = image.resize((new_width,new_height)).convert('L')
+    return resized_gray_image
 
+def pix2chars(image):
+    pixels = image.getdata()
+    characters = "".join([ASCII_CHARS[pixel//25] for pixel in pixels])
+    return characters
+
+def generate_frame(image,new_width=70):
+    new_image_data = pix2chars(resized_gray_image(image,new_width=new_width))
+
+    total_pixels = len(new_image_data)
+    print(total_pixels)
+
+    ascii_image = "\n".join([new_image_data[index:(index+new_width)] for index in range(0, total_pixels, new_width)])
+
+    return "`"+ascii_image+"`"
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
@@ -173,6 +195,22 @@ async def voiceurl(ctx,*args):
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
         voice_client.play(ffmpeg_audio_source)
+        if arg="bad apple":
+            i = 0
+            isCreated = False
+            msg = None
+            while i < 7000:
+                i = i + 3
+                img = Image.open(f"frames/frame{i}.jpg")
+                frame = generate_frame(img,60)
+                if frame != None:
+                    if isCreated == False:
+                        msg = await ctx.send(frame)
+                        #isCreated = True
+                        time.sleep(0.3)
+                    else:
+                        await msg.edit(content=frame)
+                        time.sleep(1.2)
     except:
         await ctx.send("すでに再生中")
 
