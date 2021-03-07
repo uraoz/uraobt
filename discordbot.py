@@ -172,6 +172,7 @@ class voice_chat(commands.Cog):
         except:
             pass
     
+<<<<<<< HEAD
         ydl = youtube_dl.YoutubeDL(ytdl_format_options)
         info_dict = ydl.extract_info(arg, download=False)
         try:
@@ -213,6 +214,54 @@ class voice_chat(commands.Cog):
             pass
 
 bot.add_cog(voice_chat(bot=bot))
+=======
+    ydl = youtube_dl.YoutubeDL(ytdl_format_options)
+    info_dict = ydl.extract_info(arg, download=False)
+    try:
+        duration=info_dict["duration"]
+    except:
+        duration=info_dict["entries"][0]["duration"]
+    if(int(duration))>1800:
+        await ctx.send("長すぎ 30分未満で")
+        return
+    try:
+        await ctx.send(info_dict['title']+")をロード")
+    except:
+        await ctx.send(info_dict['entries'][0]['title']+"( https://www.youtube.com/watch?v="+info_dict['entries'][0]['id']+" )をロード")
+
+    ydl.download([arg])
+    for file in os.listdir("./"):
+        if file.endswith(".mp3"):
+            os.rename(file, 'tmp.mp3')
+    voice_client = ctx.message.guild.voice_client
+    ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
+    try:
+        voice_client.play(ffmpeg_audio_source)
+
+    except:
+        await ctx.send("すでに再生中")
+
+
+
+@bot.command()
+async def voiceexit(ctx):
+    """VCから切断"""
+    voice_client = ctx.message.guild.voice_client
+    try:
+        await voice_client.disconnect()
+        await ctx.send("切断")
+    except:
+        await ctx.send("参加してない")
+    try:
+        os.remove('tmp.mp3')
+    except:
+        pass
+
+@bot.command()
+async def apchar(ctx):
+    """Apexのキャラクターのランセレ"""
+    await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
+>>>>>>> parent of 3b3471d (Update discordbot.py)
 
 @bot.event
 async def on_ready():
