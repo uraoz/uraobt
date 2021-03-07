@@ -10,7 +10,6 @@ import traceback
 import time
 import youtube_dl
 from PIL import Image
-import cv2
 import time
 ASCII_CHARS = ["-","-","-","-","-","-","-","-","-","-","@"]
 youtube_dl.utils.bug_reports_message = lambda: ''
