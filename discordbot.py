@@ -44,7 +44,6 @@ def generate_frame(image,new_width=70):
     new_image_data = pix2chars(resized_gray_image(image,new_width=new_width))
 
     total_pixels = len(new_image_data)
-    print(total_pixels)
 
     ascii_image = "\n".join([new_image_data[index:(index+new_width)] for index in range(0, total_pixels, new_width)])
 
@@ -194,7 +193,7 @@ async def voiceurl(ctx,*args):
     voice_client = ctx.message.guild.voice_client
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
-        #voice_client.play(ffmpeg_audio_source)
+        voice_client.play(ffmpeg_audio_source)
         if arg=="badapple":
             fla = 0
             isCreated = False
@@ -206,11 +205,10 @@ async def voiceurl(ctx,*args):
                 if frame != None:
                     if isCreated == False:
                         msg = await ctx.send(frame)
-                        #isCreated = True
-                        time.sleep(0.3)
+
                     else:
                         await msg.edit(content=frame)
-                        time.sleep(1.2)
+                        
     except:
         await ctx.send("すでに再生中")
 
