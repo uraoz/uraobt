@@ -205,7 +205,7 @@ async def voiceurl(ctx,*args):
                 if frame != None:
                     if isCreated == False:
                         msg = await ctx.send(frame)
-
+                        isCreated = True
                     else:
                         await msg.edit(content=frame)
                         await asyncio.sleep(0.6)
