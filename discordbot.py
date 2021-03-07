@@ -208,6 +208,7 @@ async def voiceurl(ctx,*args):
                         isCreated = True
                     else:
                         await msg.edit(content=frame)
+                        await asyncio.sleep(1.2)
                         
     except:
         await ctx.send("すでに再生中")
