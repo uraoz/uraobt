@@ -152,7 +152,7 @@ async def voiceurl(ctx,*args):
         await ctx.send("動いてたらバグるから一回とめて")
         return
     voice_state=ctx.author.voice
-    arg=''.join(args)
+    arg=' '.join(args)
     if (not voice_state) or (not voice_state.channel):
         await ctx.send("VCはいれ")
         return
@@ -194,7 +194,7 @@ async def voiceurl(ctx,*args):
     ffmpeg_audio_source = discord.FFmpegPCMAudio("tmp.mp3")
     try:
         voice_client.play(ffmpeg_audio_source)
-        if arg=="badapple":
+        if arg=="bad apple":
             fla = 0
             isCreated = False
             edited = 0
