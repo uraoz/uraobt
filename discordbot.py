@@ -208,15 +208,15 @@ async def voiceurl(ctx,*args):
                         msg = await ctx.send(frame)
                         isCreated = True
                     else:
-                        if edited > 4:
+                        if edited < 5:
                             await msg.edit(content=frame)
                             await asyncio.sleep(0.3)
-                            edited = 0
+                            edited = edited + 1
                         else:
                             await ctx.channel.purge(1)
                             msg = await ctx.send(frame)
                             await asyncio.sleep(0.3)
-                            edited = edited + 1
+                            edited = 0
             await ctx.channel.purge(1)
                         
     except:
