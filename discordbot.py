@@ -213,7 +213,7 @@ async def voiceurl(ctx,*args):
                             await msg.edit(content=frame)
                             edited = edited + 1
                         else:
-                            await ctx.channel.purge(1)
+                            await ctx.channel.purge(limit = 1)
                             msg = await ctx.send(frame)
                             edited = 0
             await ctx.channel.purge(limit = 1)
