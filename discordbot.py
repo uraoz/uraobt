@@ -197,11 +197,10 @@ async def voiceurl(ctx,*args):
         if arg=="bad apple":
             fla = 0
             isCreated = False
-            edited = 0
             msg = None
             while fla < 7300:
-                await asyncio.sleep(0.5)
-                fla = fla + 12
+                await asyncio.sleep(0.96)
+                fla = fla + 24
                 img = Image.open(f"frames/frame{fla}.jpg")
                 frame = generate_frame(img,60)
                 if frame != None:
@@ -209,13 +208,7 @@ async def voiceurl(ctx,*args):
                         msg = await ctx.send(frame)
                         isCreated = True
                     else:
-                        if edited < 5:
-                            await msg.edit(content=frame)
-                            edited = edited + 1
-                        else:
-                            await ctx.channel.purge(limit = 1)
-                            msg = await ctx.send(frame)
-                            edited = 0
+                        await msg.edit(content=frame)
             await ctx.channel.purge(limit = 1)
                         
     except:
