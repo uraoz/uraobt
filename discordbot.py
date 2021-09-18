@@ -57,6 +57,7 @@ async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send("```"+error_msg+"```")
+    print(error)
     print(error_msg)
 
 @bot.command()
