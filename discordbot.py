@@ -54,7 +54,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 
 @bot.event
 async def on_command_error(ctx, error):
-    if(str(error)="arg is a required argument that is missing."):
+    if(str(error)=="arg is a required argument that is missing."):
         await ctx.send("help見て")
         return
     orig_error = getattr(error, "original", error)
