@@ -80,6 +80,12 @@ async def roll(ctx, arg):
     """NdNを引数とする"""
     mes = ""
     arg = arg.split(sep='d',maxsplit=1)
+    if(not arg[0].isdecimal()) or (not arg[1].isdecimal()):
+        await ctx.send("整数値を指定して")
+        return
+    if(arg[0]<1) or (arg[1]<1):
+        await ctx.send("無いサイコロは振れないが...")
+        return
     for i in range(int(arg[0])):
         mes=mes+str(random.choice(range(int(arg[1])))+1)+" "
     await ctx.send(mes)
