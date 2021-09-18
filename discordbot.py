@@ -49,14 +49,14 @@ def generate_frame(image,new_width=70):
 
     return "`"+ascii_image+"`"
 
-bot = commands.Bot(command_prefix='/')
+bot = commands.Bot(command_prefix='$')
 token = os.environ['DISCORD_BOT_TOKEN']
 
 @bot.event
 async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
+    await ctx.send("```"+error_msg+"```")
     print(error_msg)
 
 @bot.command()
@@ -236,6 +236,6 @@ async def apchar(ctx):
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(status = discord.Status.idle, activity = discord.Game("/help"))
+    await bot.change_presence(status = discord.Status.idle, activity = discord.Game("$help"))
 
 bot.run(token)
