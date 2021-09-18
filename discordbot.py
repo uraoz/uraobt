@@ -79,6 +79,9 @@ async def clear(ctx, amount=3):
 async def roll(ctx, arg):
     """NdNを引数とする"""
     mes = ""
+    if(not('d' in arg)):
+        await ctx.send("help見た?")
+        return
     arg = arg.split(sep='d',maxsplit=1)
     if(not arg[0].isdecimal()) or (not arg[1].isdecimal()):
         await ctx.send("整数値を指定して")
