@@ -89,7 +89,7 @@ async def roll(ctx, arg):
     if(not arg[0].isdecimal()) or (not arg[1].isdecimal()):
         await ctx.send("整数値を指定して")
         return
-    if(arg[0]<1) or (arg[1]<1):
+    if(int(arg[0])<1) or (int(arg[1])<1):
         await ctx.send("無いサイコロは振れないが...")
         return
     for i in range(int(arg[0])):
@@ -108,7 +108,7 @@ async def shuffle(ctx, arg):
 
 @bot.command()
 async def shufflist(ctx, *args):
-    """N個の引数を入れ替える"""
+    """N個の引数の順序を入れ替える"""
     args=list(args)
     random.shuffle(args)
     await ctx.send(' '.join(args))
@@ -117,12 +117,6 @@ async def shufflist(ctx, *args):
 async def choice(ctx, *args):
     """N個の引数から一つ取り出す"""
     await ctx.send(random.choice(args))
-
-@bot.command()
-async def vachar(ctx):
-    """Valorantのキャラクターのランセレ"""
-    await ctx.send(random.choice(["BRIMSTONE","PHOENIX","SAGE","SOVA","VIPER","CYPHER","REYNA","KILLJOY","BREACH","OMEN","JETT","RAZE","SKYE"]))
-
 
 @bot.command()
 async def voicefile(ctx):
@@ -155,7 +149,7 @@ async def voicefile(ctx):
 
 @bot.command()
 async def voiceurl(ctx,*args):
-    """URLか検索文字列を再生 YoutubeのURL それ以外の文字列なら検索結果から 20分以下"""
+    """youtubeのURLか文字列の検査結果から再生 今のところ20分以下"""
     song_there = os.path.isfile("tmp.mp3")
     try:
         if song_there:
@@ -240,11 +234,6 @@ async def voiceexit(ctx):
         os.remove('tmp.mp3')
     except:
         pass
-
-@bot.command()
-async def apchar(ctx):
-    """Apexのキャラクターのランセレ"""
-    await ctx.send(random.choice(["Bangalore","Bloodhound","Caustic","Crypto","Gibraltar","Lifeline","Loba","Mirage","Octane","Pathfinder","Rampart","Revenant","Wattson","Wraith"]))
 
 @bot.event
 async def on_ready():
