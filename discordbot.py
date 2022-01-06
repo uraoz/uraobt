@@ -87,7 +87,7 @@ async def roll(ctx, arg):
         return
     arg = arg.split(sep='d',maxsplit=1)
     if(not arg[0].isdecimal()) or (not arg[1].isdecimal()):
-        await ctx.send("整数値を指定して")
+        await ctx.send("自然数を指定して")
         return
     if(int(arg[0])<1) or (int(arg[1])<1):
         await ctx.send("無いサイコロは振れないが...")
