@@ -66,14 +66,14 @@ async def on_command_error(ctx, error):
 async def ping(ctx):
     """ping"""
     await ctx.send(str(round(bot.latency, 2)))
-
+"""
 @bot.command()
 async def addrole(ctx, arg):
     "role追加　名称から"
     role = get(guild.roles, name=arg)
-    user = get_member(int(ctx.message.author.id))
+    user = message.guild.get_member(int(ctx.message.author.id))
     await user.add_roles(role)
-
+"""
 @bot.command()
 async def clear(ctx, amount=3):
     """無駄ログ消し デフォルトで3 amount=Nで量指定"""
