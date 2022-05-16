@@ -70,8 +70,8 @@ async def ping(ctx):
 @bot.command()
 async def addrole(ctx, arg):
     "role追加　名称から"
-    role = discord.utils.get(guild.roles, name=arg)
-    user = message.guild.get_member(int(ctx.message.author.id))
+    role = get(guild.roles, name=arg)
+    user = get_member(int(ctx.message.author.id))
     await user.add_roles(role)
 
 @bot.command()
